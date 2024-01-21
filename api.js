@@ -6,7 +6,7 @@ let w;
 
 async function getActivity(endpoint) {
     try {
-        const response = await fetch(`${url}${endpoint}`);
+        const response = await fetch(`${url}${endpoint}`).then(console.log(`${endpoint}`));
         if (response.error) {
             alert(error);
         }
@@ -86,9 +86,10 @@ async function price() {
     const activity = await Promise.any([
         getActivity('activity?minprice=0&maxprice=0.1'),
         getActivity('activity?minprice=0&maxprice=0.05'),
-    ]);
+    ])
 
     console.log(activity)
+   
 }
 
 price()
