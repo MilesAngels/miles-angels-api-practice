@@ -1,20 +1,21 @@
 const url = 'http://www.boredapi.com/api/';
 const randomActivityBtn = document.getElementById('activity');
 const filterBtn = document.getElementById('dropdown');
+const accessibilityBtn = document.getElementById('accessible');
+let w;
 
-async function getActivity(endpoint){
-    try{
+async function getActivity(endpoint) {
+    try {
         const response = await fetch(`${url}${endpoint}`);
         if (response.error) {
             alert(error);
         }
         else {
-            console.log(response)
             let data = await response.json();
             return data;
         }
     }
-    catch(error) {
+    catch (error) {
         alert(error);
     }
 }
@@ -24,7 +25,7 @@ async function displayRandomActivity() {
     const activity = await getActivity('activity')
     const card = document.createElement('div');
     card.classList = 'card';
-    card.innerHTML = 
+    card.innerHTML =
         `<div class="card-body">
             <h5 class="card-title">Activity: ${activity.activity}</h5>
             <span class="badge rounded-pill text-bg-primary">Type: ${activity.type}</span>
@@ -46,7 +47,7 @@ async function displayTypeActivity() {
     close.id = 'closeBtn';
     close.type = 'button';
     cardBody.classList = 'card-body';
-    cardBody.innerHTML = 
+    cardBody.innerHTML =
         `
         <h5 class="card-title">Activity: ${activity.activity}</h5>
         <span class="badge rounded-pill text-bg-primary">Type: ${activity.type}</span>
@@ -58,6 +59,41 @@ async function displayTypeActivity() {
     document.getElementById('root').append(card);
 }
 
+async function accessibility() {
+    const activity = await Promise.all([
+        getActivity('activity?accessibility=1'),
+        getActivity('activity?accessibility=0'),
+        getActivity('activity?accessibility=0')
+    ]);
+
+    activity.forEach(activity => {
+        const card = document.createElement('div');
+        card.classList = 'card';
+        card.innerHTML =
+            `<div class="card-body">
+            <h5 class="card-title">Activity: ${activity.activity}</h5>
+            <span class="badge rounded-pill text-bg-primary">Type: ${activity.type}</span>
+            <p class="card-text">Accessibility: ${activity.accessibility}</p>
+            <p class="card-text">Price: ${activity.price}</p>
+            <p class="card-text">Participants: ${activity.participants}</p>
+        </div>`;
+        document.getElementById('root').append(card);
+    })
+
+}
+
+async function price() {
+    const activity = await Promise.any([
+        getActivity('activity?minprice=0&maxprice=0.1'),
+        getActivity('activity?minprice=0&maxprice=0.05'),
+    ]);
+
+    console.log(activity)
+}
+
+price()
+
+accessibilityBtn.addEventListener('click', accessibility);
 filterBtn.addEventListener('change', displayTypeActivity);
 
 randomActivityBtn.addEventListener('click', displayRandomActivity);
