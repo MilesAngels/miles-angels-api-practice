@@ -35,7 +35,7 @@
       if(window.Worker) {
         let myWorker = new Worker("worker.js");
 
-        let message = { addThis: {num1:1, num2:2}};
+        let message = { convertTime: {num:8}};
 
         myWorker.postMessage(message);
 

@@ -1,5 +1,7 @@
 this.onmessage = function(e) {
-    if(e.data.addThis !== undefined) {
-        this.postMessage({result: e.data.addThis.num1 + e.data.addThis.num2});
+    if(e.data.convertTime !== undefined) {
+        this.postMessage({result: 
+            `${e.data.convertTime.num} hrs is ${e.data.convertTime.num*60} mins`
+        });
     }
 }
