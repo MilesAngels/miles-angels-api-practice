@@ -25,24 +25,15 @@
           <option class="dropdown-item"  value="busywork">Busywork</option>
         </select>
         
-    </form> 
+    </form>
+    <button type="button" class="btn btn-dark" id="price">Price</button>
     <button type="button" class="btn btn-dark" id="accessible">Accessible Activity</button>
+
+    <button type="submit" class="btn btn-dark" id="time-date">Get Current Date and Time</button>
 
     <div id="root"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="./api.js" type="module"></script>
-    <script>
-      if(window.Worker) {
-        let myWorker = new Worker("worker.js");
-
-        let message = { convertTime: {num:8}};
-
-        myWorker.postMessage(message);
-
-        myWorker.onmessage = function(e) {
-          console.dir(e.data.result);
-        }
-      }
-    </script>
+  
 </body>
 </html>

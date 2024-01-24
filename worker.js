@@ -1,7 +1,10 @@
-this.onmessage = function(e) {
-    if(e.data.convertTime !== undefined) {
-        this.postMessage({result: 
-            `${e.data.convertTime.num} hrs is ${e.data.convertTime.num*60} mins`
-        });
+addEventListener('message', message => {
+    if(message.data.command === 'generate') {
+        today();
     }
+});
+
+function today() {
+    const today = new Date()
+    postMessage(today.toLocaleString()); 
 }
